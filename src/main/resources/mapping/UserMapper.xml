@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctguqmx.recruit.dao.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.ctguqmx.recruit.pojo.User">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="username" jdbcType="VARCHAR" property="userName" />
+        <result column="password" jdbcType="VARCHAR" property="passWord" />
+        <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    </resultMap>
+
+    <select id="selectById" resultType="com.ctguqmx.recruit.pojo.User">
+        select * from `user` where id = #{id}
+    </select>
+
+    <!-- 新增-->
+    <insert id="insertUser" parameterType="com.ctguqmx.recruit.pojo.User" >
+    insert into `user` (username, password, group_id)
+    values (#{userName,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR}, #{groupId,jdbcType=INTEGER})
+    </insert>
+
+
+    <!-- 查询-->
+    <select id="selectUser" resultType="com.ctguqmx.recruit.pojo.User">
+        select * from `user` where username = #{username} and password = #{password};
+    </select>
+
+    <select id="selectByUserName" resultType="com.ctguqmx.recruit.pojo.User">
+        select * from `user` where username = #{username};
+    </select>
+</mapper>

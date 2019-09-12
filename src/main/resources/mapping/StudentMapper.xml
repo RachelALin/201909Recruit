@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctguqmx.recruit.dao.StudentMapper">
+
+    <resultMap id="BaseResultMap" type="com.ctguqmx.recruit.pojo.Student">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+        <result column="student_id" jdbcType="VARCHAR" property="studentId" />
+        <result column="academy" jdbcType="VARCHAR" property="academy" />
+        <result column="major" jdbcType="VARCHAR" property="major" />
+        <result column="qq" jdbcType="VARCHAR" property="qq" />
+        <result column="tel" jdbcType="VARCHAR" property="tel" />
+        <result column="sex" jdbcType="VARCHAR" property="sex" />
+        <result column="group" jdbcType="VARCHAR" property="group" />
+        <result column="grade" jdbcType="INTEGER" property="grade" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
+    </resultMap>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from stu
+    </select>
+
+    <select id="countAllByGroup" resultType="int">
+        select count(*) from stu where `group` = #{group,jdbcType=VARCHAR}
+    </select>
+
+    <select id="countAllBySex" resultType="int">
+        select count(*) from stu where `sex` = #{sex,jdbcType=VARCHAR} and `group` = #{group,jdbcType=VARCHAR}
+    </select>
+
+    <select id="countAllByMajor" resultType="int">
+        select count(*) from stu where `major` = #{major,jdbcType=VARCHAR} and `group` = #{group,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    	select * from stu where student_name like #{studentName,jdbcType=VARCHAR}
+  	</select>
+
+    <select id="findByNameAndSIdAndCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+    	select * from stu where student_name = #{studentName,jdbcType=VARCHAR} and student_id = #{studentId,jdbcType=VARCHAR} and `code` = #{code,jdbcType=VARCHAR}
+  	</select>
+
+    <!-- 删除用户 -->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM stu WHERE id = #{id}
+    </delete>
+
+    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    	select * from stu where id = #{id}
+  	</select>
+
+    <select id="findByStudentId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    	select * from stu where student_id = #{sid}
+  	</select>
+
+    <select id="findByTel" resultMap="BaseResultMap" parameterType="java.lang.String">
+    	select * from stu where tel = #{tel}
+  	</select>
+
+    <select id="findByGroup" resultMap="BaseResultMap" parameterType="java.lang.String">
+    	select * from stu where `group` = #{group}
+  	</select>
+
+    <update id="updateById" parameterType="com.ctguqmx.recruit.pojo.Student">
+        update stu
+    set
+    status = #{status,jdbcType=INTEGER},
+    student_name = #{studentName,jdbcType=VARCHAR},
+    student_id = #{studentId,jdbcType=VARCHAR},
+    academy = #{academy,jdbcType=VARCHAR},
+    major = #{major,jdbcType=VARCHAR},
+    qq = #{qq,jdbcType=VARCHAR},
+    tel = #{tel,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      `group` = #{group,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateCodeByTel" parameterType="java.lang.String">
+        update stu
+    set   `code` = #{code,jdbcType=VARCHAR}
+    where `tel` = #{tel,jdbcType=VARCHAR}
+    </update>
+
+    <insert id="add" parameterType="com.ctguqmx.recruit.pojo.Student">
+        insert into `stu` (student_name,student_id,academy,major,qq,tel,sex,`group`,grade)
+        values (#{studentName,jdbcType=VARCHAR},
+    #{studentId,jdbcType=VARCHAR},
+    #{academy,jdbcType=VARCHAR},
+    #{major,jdbcType=VARCHAR},
+    #{qq,jdbcType=VARCHAR},
+    #{tel,jdbcType=VARCHAR},
+    #{sex,jdbcType=VARCHAR},
+    #{group,jdbcType=VARCHAR},
+    #{grade,jdbcType=INTEGER})
+    </insert>
+
+    <select id="findStudentByNameAndIdAndTel" resultMap="BaseResultMap" parameterType="java.lang.String">
+    	select * from `stu` where student_name = #{studentName,jdbcType=VARCHAR} and student_id = #{studentId,jdbcType=VARCHAR} and `tel` = #{tel,jdbcType=VARCHAR}
+  	</select>
+
+</mapper>

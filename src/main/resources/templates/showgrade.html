@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>启明星成绩查询成功</title>
+	<!-- Meta tag Keywords -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8" />
+	<meta name="keywords" content="" />
+	<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<style type="text/css">
+		.rightbox{
+			border-right: 1px solid #b3c2d1; 
+		}
+
+		@media screen and (max-width:500px){
+
+		.rightbox{
+			border-right: 1px solid white; 
+		/*	border-bottom: 1px solid #b3c2d1;*/
+
+		}
+		.topbox{
+			margin-top: 20px;
+		}
+		}
+
+	</style>
+	<!--// Meta tag Keywords -->
+<!-- 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> -->
+	<!-- Custom-Files -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+	<!-- Bootstrap-Core-CSS -->
+	<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" media="all" />
+	<!-- Style-CSS -->
+	<link rel="stylesheet" th:href="@{/css/fontawesome-all.css}">
+	<!-- Font-Awesome-Icons-CSS -->
+	<!-- //Custom-Files -->
+	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+
+
+</head>
+
+<body>
+	<div class="container">
+	<div class="Header" style="border-bottom: 2px solid #195199;">
+		<div class="row"> 
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				<div class="row">
+				<img src="https://ae01.alicdn.com/kf/Hfa3262ba7e9f4d1db8cd971784c4ab8fC.png">
+				<h3 style="margin-top:50px; color:#195199; font-family: '微软雅黑';"><strong>启明星成绩查询</strong></h3>
+
+				</div> 
+				
+			</div>
+
+		</div>
+	
+	</div>
+	<div class="container">
+	<div class="Content">
+		<div class="row" style="margin: 40px auto;">
+		<div class="col-md-7 col-sm-7 rightbox" >
+			<h5 style="text-align: center; color:#4986d5 ;">2019年秋季启明星成绩查询</h5>
+			<br>
+			<p style="font-size: 12px; color: #514747; font-family: '宋体'; text-align: center;">仅限于2019年秋季启明星成绩查询</p>
+			<br>
+			<section>
+				<h5 style="font-family:'宋体'; "><strong><span th:text="${stu.getStudentName()}"></span></strong>同学:</h5>
+				<br>
+				
+				<pre>     你的成绩为： <span th:text="${stu.getGrade()}"></span>    <br><br><br>     你的录取情况为：<span th:text="${status}"></span>
+				</pre>
+
+			</section>
+			<hr>
+
+		</div>
+		
+	
+
+		<div class="col-md-5 col-sm-5">
+			<div class="container topbox" >
+		<!-- 	<div class="content1" style="margin: 20px 88px;" > -->
+					<div class="col-md-5" style="margin: 0 auto;"></div>
+					<span class="glyphicon glyphicon-print"></span>
+					<p style="font-family: '宋体'; font-size: 14px; color: #766e6e;">若对成绩产生质疑可用以下方式联系我们</p>
+		
+					<br>
+					<ul style="list-style:none;">
+						<li style="font-family: '宋体';"><i class="fa fa-phone" style="color: #195199;"></i>&nbsp15871595179</li>
+						<br>
+						<li style="font-family: '宋体';"><i class="fa fa-envelope" style="color: #195199;"></i>&nbsp361808700@qq.com</li>
+						<br>
+						<li style="font-family: '宋体';"><i class="fa fa-table" style="color: #195199;"></i>&nbsp工作日
+						<br>
+						&nbsp&nbsp上午：08:00-11:40 
+						<br>
+						&nbsp&nbsp下午：13:40-17:40
+						<br>
+						&nbsp&nbsp晚上：19:00-22:30
+						</li>
+						<hr>
+						<li style="font-family: '宋体';"><a href="/"><i class="fa fa-undo" style="color: #195199;"></i></a>&nbsp回到招新主页</li>
+					</ul> 
+
+				
+			</div>
+			
+		</div>
+		</div>
+	</div>
+
+	</div>
+	</div>
+
+
+	<div class="footer">
+		<div class="copy-right-w3ls py-3" style="background: rgba(128, 122, 122, 0.08); ">
+			<div class="container" >
+	
+				<div class="col-md-4 col-sm-12" style="margin: 0 auto;"><p style="text-align: center;">启明星©to make a difference</p></div>
+
+			</div>
+		</div>
+	</div>
+	<!-- Js files -->
+	<!-- JavaScript -->
+	<script th:src="@{/js/jquery-2.2.3.min.js}"></script>
+	<!-- Default-JavaScript-File -->
+	<script th:src="@{/js/bootstrap.js}"></script>
+	<!-- Necessary-JavaScript-File-For-Bootstrap -->
+
+	<!-- fixed nav -->
+	<script>
+		$(window).scroll(function () {
+			if ($(document).scrollTop() > 50) {
+				$('nav').addClass('shrink');
+			} else {
+				$('nav').removeClass('shrink');
+			}
+		});
+	</script>
+	<!-- //fixed nav -->
+	<!-- //navigation -->
+
+	<!-- smooth scrolling -->
+	<script th:src="@{/js/SmoothScroll.min.js}"></script>
+	<!-- move-top -->
+	<script th:src="@{/js/move-top.js}"></script>
+	<!-- easing -->
+	<script th:src="@{/js/easing.js}"></script>
+	<!--  necessary snippets for few javascript files -->
+	<script th:src="@{/js/outdoor.js}"></script>
+
+	<script th:src="@{/js/bootstrap.js}"></script>
+	<!-- Necessary-JavaScript-File-For-Bootstrap -->
+
+	<!-- //Js files -->
+
+
+</body>
+
+</html>

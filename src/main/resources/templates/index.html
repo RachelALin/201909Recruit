@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>启明星招新网站</title>
+	<!-- Meta tag Keywords -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8" />
+	<meta name="keywords" content="" />
+	<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+
+
+	</script>
+	<!--// Meta tag Keywords -->
+	<style type="text/css">
+
+	  #div1 {
+		  position: relative;
+		  width: 85%;
+		  height: 260px;
+		  margin: 0 auto;
+		  overflow: hidden;
+		  background-color: #fff;
+	  }
+
+		#div1 a {
+			position: absolute;
+			color: #878e15;
+			text-decoration: none;
+			top: 260px;
+			display: block;
+			border: #878e15 1px solid;
+			box-shadow: 0 0 5px #878e15;
+			-webkit-box-shadow: 0 0 5px #878e15;
+			-moz-box-shadow: 0 0 5px #878e15;
+			background: #fff;
+			filter: alpha(opacity: 30);
+			opacity: 0.3;
+			font-size: 14px;
+			padding: 3px 5px;
+			font-family: arial;
+		}
+
+		#div1 a:hover {
+			filter: alpha(opacity: 100);
+			opacity: 1;
+			font-weight: bold;
+			font-size: 16px;
+		}
+
+
+		.info .container{
+			width: 80%;
+			margin: 20px auto;
+			display: block;
+			box-sizing: border-box;
+		}
+		.info .container .box{
+			width: 650px;
+			padding: 20px 100px;
+			margin: 20px auto;
+			background-color: #db5f55;
+		}
+		section .container>h2{
+			text-align: center;
+			margin: 10px auto;
+		}
+		section .signup{
+			padding: 20px;
+			position: relative;
+			margin: 10px auto;
+			text-align: center;
+			transition: 500ms;
+		}
+		.signup:after{
+			content: '';
+			height: 0.3em;
+			left: 0;
+			bottom: 0;
+			position: absolute;
+			width: 100%;
+			z-index: 2;
+			opacity: 0;
+			transition: 500ms;
+			background-color: #e67e22;
+		}
+		.signup .fa{
+			transition: 500ms;
+			font-size: 2.5em;
+			color: #2c3e50;
+		}
+		.signup .exam{
+			transition: 500ms;
+			color: #2c3e50;
+		}
+		.signup .day{
+			color: #1e1b1b;
+			font-size: 1.1em;
+			font-weight: bold;
+		}
+		section .signup:hover{
+			box-shadow: 0 0 15px 0 rgba(0,0,0,0.4);
+		}
+		.signup:hover:after{
+			opacity: 1;
+		}
+		.signup:hover .exam,.signup:hover .fa{
+			color: #e6c30b;
+		}
+		.nan{
+			height: 700px;
+			background-color: #fff;
+		}
+		@media screen and (max-width: 768px){
+			
+			.info .container{
+				width: 100%;
+				padding: 10px 20px;
+			}.info .container .box{
+				width: 100%;
+				padding: 20px 50px;
+			}
+		}
+		a.ex5:hover,a.ex5.active{border-radius: 10%;border: 1px solid #d5d4db; border-bottom-style: none;}
+	</style>
+	<!-- Custom-Files -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+	<!-- Bootstrap-Core-CSS -->
+	<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" media="all" />
+	<!-- Style-CSS -->
+	<link rel="stylesheet" th:href="@{/css/fontawesome-all.css}">
+	<!-- Font-Awesome-Icons-CSS -->
+		<!-- Bootstrap-Core-CSS -->
+	<link th:href="@{/css/JiSlider.css}" rel="stylesheet">
+	<!-- //Custom-Files -->
+
+	<!-- Web-Fonts -->
+	<link href="http://fonts.googleapis.com/css?family=Archivo+Black&amp;subset=latin-ext" rel="stylesheet">
+	<link href="http://fonts.googleapis.com/css?family=Amaranth:400,400i,700,700i" rel="stylesheet">
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+
+	<!-- //Web-Fonts -->
+
+</head>
+
+<body>
+
+	<!-- 轮播图 -->
+	<div class="banner-silder">
+		<div id="JiSlider" class="jislider">
+			<ul>
+				<li>
+					<div class="w3layouts-banner-top">
+						<div class="bs-slider-overlay">
+							<div class="container">
+								<!-- Slide Text Layer -->
+								<div class="w3l-slide-text">
+									<p class="aos-init aos-animate" data-aos="fade-down">To create value</p>
+									<h3 data-animation="animated zoomInRight">To make a difference</h3>
+
+								</div>
+								<div class="text-center">
+									<a href="/signup" target="_blank" class="button-style" data-animation="animated fadeInDown" data-aos="fade-down">点我报名吧</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="w3layouts-banner-top w3layouts-banner-top1">
+						<div class="bs-slider-overlay">
+							<div class="container">
+								<!-- Slide Text Layer -->
+								<div class="w3l-slide-text">
+									<p class="aos-init aos-animate" data-aos="fade-down">To create value</p>
+									<h3 data-animation="animated zoomInRight">To make a difference</h3>
+
+								</div>
+								<div class="text-center">
+									<a href="/signup" target="_blank" class="button-style" data-animation="animated fadeInDown" data-aos="fade-down">点我报名吧</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="w3layouts-banner-top w3layouts-banner-top2">
+						<div class="bs-slider-overlay">
+							<div class="container">
+								<!-- Slide Text Layer -->
+								<div class="w3l-slide-text">
+									<p class="aos-init aos-animate" data-aos="fade-down">To create value</p>
+									<h3 data-animation="animated zoomInRight">To make a difference</h3>
+
+								</div>
+								<div class="text-center">
+									<a href="/signup" target="_blank" class="button-style" data-animation="animated fadeInDown" data-aos="fade-down">点我报名吧</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="w3layouts-banner-top w3layouts-banner-top3">
+						<div class="bs-slider-overlay">
+							<div class="container">
+								<!-- Slide Text Layer -->
+								<div class="w3l-slide-text">
+									<p class="aos-init aos-animate" data-aos="fade-down">To create value</p>
+									<h3 data-animation="animated zoomInRight">To make a difference</h3>
+
+								</div>
+								<div class="text-center">
+									<a href="/signup" target="_blank" class="button-style" data-animation="animated fadeInDown" data-aos="fade-down">点我报名吧</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="w3layouts-banner-top w3layouts-banner-top4">
+						<div class="bs-slider-overlay">
+							<div class="container">
+								<!-- Slide Text Layer -->
+								<div class="w3l-slide-text">
+									<p class="aos-init aos-animate" data-aos="fade-down">To create value</p>
+									<h3 data-animation="animated zoomInRight">To make a difference</h3>
+
+								</div>
+								<div class="text-center">
+									<a href="/signup" target="_blank" class="button-style" data-animation="animated fadeInDown" data-aos="fade-down">点我报名吧</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<br>
+	<br>
+	<section id="nan">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3" style="height: 150px;">
+			<div class="signup">
+				<h3 class="exam">招新宣传</h3>
+				<p>你可以开始慢慢了解启明星啦</p>
+				<p class="day" th:text="${cont1}"></p>
+			</div>
+			</div>
+	
+		<div class="col-md-3" style="height: 150px;">
+			<div class="signup">	
+				<h3 class="exam">招新报名</h3>
+				<p>在此网站填写你的信息，加入我们</p>
+				<p class="day" th:text="${cont2}"></p>
+			</div>
+			</div>
+		<div class="col-md-3" style="height: 150px;">
+		<div class="signup">
+			<h3 class="exam">宣讲会</h3>
+			<p>解决你内心的疑惑，找到自己兴趣所在</p>
+			<p class="day" th:text="${cont3}"></p>
+		</div>
+		</div>
+		<div class="col-md-3" style="height: 150px;">
+			<div class="signup">
+				<h3 class="exam">招新考试</h3>
+				<p>进行笔试、面试，发短信告知地点时间</p>
+				<p class="day" th:text="${cont4}"></p>
+			</div>
+		</div>
+		</div>
+	</div>
+	</section>
+	<br>
+	<br>
+	<br>
+	
+	<!-- 透明背景 -->
+	<div class="middle-w3l text-center py-5" id="opacity">
+		<div class="container py-xl-5 py-lg-3">
+			<h3 class="tittle text-center text-uppercase text-white font-weight-bold mb-sm-4 mb-3 mt-4">
+				启明星</h3>
+			<p class="text-white mx-auto text-justify">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp2009年3月，在学院领导的支持下，三峡大学计算机与信息学院的学生自发组织了一个实训实验室。这是第一个由学生自主管理自己的天地，它有一个充满活力而且响亮名字：“启明星”</p>
+			<p class="text-white mx-auto text-justify" >&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMake a difference是工作室的理念，来自李开复老师的一篇文章：“知道什么是make a difference吗？想象有两个世界，一个世界中有你，一个世界中没有你，让两者的不同最大，最大化你的影响力，这就是你一生的意义。” 希望所有人在工作室这个平台能实现自己的梦想，最大化自己的不同。同样，工作室的目的也在于此，让今天的你与昨天的你不同，让四年后的你与现在的你不同。</p>
+			<p class="text-white mx-auto text-justify">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp工作室成立以来从最初的十几名学生，到如今由开发组和智能组共同组成了一百多名学生。工作室内部实现自我管理，不仅在老师的带领下完成各种项目，也通过自身的不断努力学习软件开发等相关技术。同时在老一代成员的带领下，不断地传承工作室的理念，促进工作室的发展。 工作室一方面解决同学们动手能力落后于其他高校的现状，促进同学们的就业，为同学们实现理想提供优良的环境与基石；另一方面工作室是同学们展示能力，提高技术的平台，这里集中了三峡大学最优秀的软件开发、网站制作、数据库开发、影视编辑、硬件编程、三维可视化、游戏开发的本科生。</p>
+
+		</div>
+	</div>
+	<!-- //middle section -->
+	<!-- 介绍工作室 标签-->
+<!-- banner bottom -->
+	<div class="middle-agile-2 py-5">
+		<div class="py-xl-5 py-lg-3">
+
+			<div class="practice-areas " >
+				<div class="container text-center">
+					<h3 class="tittle text-center text-uppercase font-weight-bold mb-sm-4 mb-3 mt-4" style="color: black;">
+						各组简介</h3>
+
+					<ul class="nav nav-tabs text-center" role="">
+						<li><a href="#home"  class="active ex5" aria-controls="home" role="tab" data-toggle="tab" style="color: black;  padding-left: 5px; padding-right: 5px; padding-top: 5px;" >开发组</a></li>
+						<li>&nbsp</li>
+						<li><a href="#profile" aria-controls="profile"  class="ex5" role="tab" data-toggle="tab" style="color: black;  padding-left: 5px; padding-right: 5px; padding-top: 5px;">智能组</a></li>
+						<li>&nbsp</li>
+						<li><a href="#file" aria-controls="file"  class="ex5" role="tab" data-toggle="tab" style="color: black;  padding-left: 5px; padding-right: 5px; padding-top: 5px;">成就</a></li>
+					</ul>
+				</div>
+				<!-- Tab panes -->
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="home">
+						<div class="middle-agile-2 py-5">
+							<div class="py-xl-5 py-lg-3">
+								<div class="d-flex t-in">
+									<div class="col-lg-5 text-info-sec p-0">
+										<img src="https://ae01.alicdn.com/kf/H0855f7bf8ccc46ca94db31d2ca4a3c74v.jpg" alt=" " class="img-fluid" />
+									</div>
+									<div class="col-lg-7 text-info-sec bg-light">
+										<h5 class="what-title text-dark my-3">开发组</h5>
+										<p class="whats-text mb-4">主要学习超文本标记语言HTML，脚本语言JavaScript，编程语言java PHP .NET。后台数据库，web后台服务器的管理。</p>
+										<p class="whats-text">我们以周任务的形式进行从前端到后台一整个系列的学习。并且我们学习编程和算法，参加相应的编程竞赛，我们注重培养独立动手编程代码、自主学习的能力。独立的承接校内、校外一些老师和企业的开发需求。从实践中掌握一些开发的技能。
+										</p>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div role="tabpanel" class="tab-pane" id="profile">
+						<div class="d-flex t-in">
+							<div class="middle-agile-2 py-5">
+								<div class="py-xl-5 py-lg-3">
+									<div class="d-flex t-in">
+										<div class="col-lg-5 text-info-sec p-0">
+											<img src="https://ae01.alicdn.com/kf/H2e074cbbcb1d442385b4a65c182c4b9eK.jpg" alt=" " class="img-fluid" />
+										</div>
+										<div class="col-lg-7 text-info-sec bg-light">
+											<h5 class="what-title text-dark my-3">智能组</h5>
+											<p class="whats-text mb-4">主要学习51,AVR,STM32,Arduino单片机开发，涉足嵌入式系统及智能硬件开发。聚集了众多喜欢编程，热爱硬件设计与开发的三大学子。</p>
+											<p class="whats-text">根据组内成员兴趣的不同，安排个性化的学习任务。同时参加各种学科竞赛，专业能力会得到大幅提升。相关发展方向包括：嵌入式软件开发，PCB工艺，电路设计以及FPGA开发等。
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="file">
+						<div class="d-flex t-in">
+							<div class="middle-agile-2 py-5">
+								<div class="py-xl-5 py-lg-3">
+									<div class="d-flex t-in">
+										<div class="col-lg-5 text-info-sec p-0">
+											<img src="https://ae01.alicdn.com/kf/H42d3be163cf14fd38990ed79c25d8415o.jpg" alt=" " class="img-fluid" />
+										</div>
+										<div class="col-lg-7 text-info-sec bg-light">
+											<h5 class="what-title text-dark my-3">历年成就</h5>
+
+											<p class="whats-text">启明星工作室成立以来，参与了大量老师和企业的课题和项目，项目经费累计数十万。在竞赛方面，工作室成员在ACM/ICMP、物联网设计竞赛、蓝桥杯软件大赛、电子设计大赛、工程训练综合能力竞赛、中国工程机器人大赛暨国际公开赛、全国大学生数学建模大赛……等各项竞赛中均有获奖。</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //banner bottom -->
+	
+
+
+	
+<!-- feedback -->
+<section class="news py-5" id="feedback">
+	<div class="container py-xl-5 py-lg-3">
+		<h3 class="tittle text-center text-uppercase text-white font-weight-bold mb-sm-5 mb-4">作品展示</h3>
+		<div class="owl-carousel owl-theme">
+			<div class="item">
+				<div class="feedback-info bg-white py-5 px-4">
+<!--					小车-->
+					<img src="https://ae01.alicdn.com/kf/H6d8a1acd7acd42489bb92cbf3549c232V.jpg">
+				</div>
+			</div>
+			<div class="item">
+				<div class="feedback-info bg-white py-5 px-4">
+<!--					宫崎骏-->
+					<img src="https://ae01.alicdn.com/kf/H99359f86b55143c4b8393b05af4f3e33F.png">
+				</div>
+			</div>
+			<div class="item">
+				<div class="feedback-info bg-white py-5 px-4">
+<!--					游戏刘陈林-->
+					<img src="https://ae01.alicdn.com/kf/H43d929d8a0744b6fb7817d28fefa3f4ah.png">
+				</div>
+			</div>
+			<div class="item">
+				<div class="feedback-info bg-white py-5 px-4">
+<!--					俄罗斯方块-->
+					<img src="https://ae01.alicdn.com/kf/Heb5e3b5cb9b7423693bffd4f3d387987l.png">
+				</div>
+			</div>
+			<div class="item">
+				<div class="feedback-info bg-white py-5 px-4">
+					<!--拼凑-->
+					<img src="https://ae01.alicdn.com/kf/H8a21ff9f1b9849948c8f7159a5f6ea09S.png">
+				</div>
+			</div>
+			<div class="item">
+				<div class="feedback-info bg-white py-5 px-4">
+					
+					<img src="https://ae01.alicdn.com/kf/H474175832cf149cb867adbf6c1e87a9au.png">
+				</div>
+			</div>
+			<div class="item">
+				<div class="feedback-info bg-white py-5 px-4">
+					<!--宫崎骏-->
+					<img src="https://ae01.alicdn.com/kf/H832df6e281e5432e846eb1e5ef1d3643X.png">
+				</div>
+			</div>
+			<div class="item">
+				<div class="feedback-info bg-white py-5 px-4">
+					<img src="https://ae01.alicdn.com/kf/H730faaefe73a4127adfcfd4879223dc4z.png">
+				</div>
+			</div>
+			<div class="item">
+				<div class="feedback-info bg-white py-5 px-4">
+					
+					<img src="https://ae01.alicdn.com/kf/H7f79e17121e34f71813635438489b5dfB.jpg">
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+<!-- contact info -->
+	<section class="banner-bottom-w3ls py-5" id="get">
+		<div class="container py-xl-5 py-lg-3">
+			<h3 class="tittle text-center text-uppercase text-dark font-weight-bold mb-sm-5 mb-4">联系我们</h3>
+			<div class="address row mb-xl-5">
+				<div class="col-lg-4 address-grid-w3l">
+					<div class="address-info p-5">
+						<div class="row">
+							<div class="col-md-3 address-left text-center">
+								<a href="/signup" target="_blank"><i class="fa fa-map"></i></a>
+							</div>
+							<div class="col-md-9 address-right text-left">
+								<h6 class="ad-info text-uppercase mb-2"><a href="/signup" target="_blank" style="color: #585858;">点击报名</a></h6>
+								<p>开始报名吧</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-4 address-grid-w3l my-lg-0 my-4">
+					<div class="address-info p-5">
+						<div class="row">
+							<div class="col-md-3 address-left text-center">
+								<a href="https://www.ctguqmx.com/" target="_blank"><i class="fa fa-envelope"></i></a>
+							</div>
+							<div class="col-md-9 address-right text-left">
+								<h6 class="ad-info text-uppercase mb-2"><a href="https://www.ctguqmx.com/" target="_blank" style="color: #585858;">启明星论坛</a></h6>
+								<p>
+									启明星工作室在线社区
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 address-grid-w3l">
+					<div class="address-info p-5">
+						<div class="row">
+
+							<div class="col-md-3 address-left text-center">
+								<a href="/grade"><i class="fa fa-search"></i></a>
+							</div>
+							<div class="col-md-9 address-right text-left">
+								<h6 class="ad-info text-uppercase mb-2"><a href="/grade" target="_blank" style="color: #585858;">点击查询</a></h6>
+								<p>快来看看自己的成绩吧</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<!-- //contact info -->
+<!--	留言-->
+	<div id="div1">
+		<div th:each="c:${message}">
+		<a href="javascript:void(0);" name="a" th:text="${c.getMessage()}"></a>
+		</div>
+
+	</div>
+
+<!-- // 留言-->
+	<div class="footer">
+		<div class="copy-right-w3ls py-3" >
+		<div class="container" >
+
+				<div class="col-md-4 col-sm-12" style="margin: 0 auto;"><p style="text-align: center;">启明星©to make a difference</p></div>
+
+		</div>
+		</div>
+	</div>
+	<!-- Js files -->
+	<!-- JavaScript -->
+	<script th:src="@{/js/jquery-2.2.3.min.js}"></script>
+	<!-- Default-JavaScript-File -->
+	<script th:src="@{/js/bootstrap.js}"></script>
+	<!-- Necessary-JavaScript-File-For-Bootstrap -->
+
+	<!-- navigation -->
+	<!-- dropdown smooth -->
+	<script>
+		$(document).ready(function () {
+			$(".dropdown").hover(
+				function () {
+					$('.dropdown-menu', this).stop(true, true).slideDown("fast");
+					$(this).toggleClass('open');
+				},
+				function () {
+					$('.dropdown-menu', this).stop(true, true).slideUp("fast");
+					$(this).toggleClass('open');
+				}
+			);
+		});
+		/*document.oncontextmenu=new Function("event.returnValue=false;"); 
+		document.onselectstart=new Function("event.returnValue=false;");*/
+	</script>
+	<!-- //dropdown smooth -->
+	<!-- fixed nav -->
+	<script>
+		$(window).scroll(function () {
+			if ($(document).scrollTop() > 50) {
+				$('nav').addClass('shrink');
+			} else {
+				$('nav').removeClass('shrink');
+			}
+		});
+	</script>
+	<!-- //fixed nav -->
+	<!-- //navigation -->
+		
+
+
+	<!-- carousel(for feedback) -->
+	<script th:src="@{/js/owl.carousel.js}"></script>
+	<script>
+		$(document).ready(function () {
+			$('.owl-carousel').owlCarousel({
+				loop: true,
+				margin: 10,
+				responsiveClass: true,
+				responsive: {
+					0: {
+						items: 1,
+						nav: true
+					},
+					600: {
+						items: 2,
+						nav: false
+					},
+					1000: {
+						items: 3,
+						nav: true,
+						loop: false,
+						margin: 20
+					}
+				}
+			})
+		})
+	</script>
+	<link rel="stylesheet" th:href="@{/css/owl.theme.css}" type="text/css" media="all">
+	<link rel="stylesheet" th:href="@{/css/owl.carousel.css}" type="text/css" media="screen" property="" />
+	<!-- //carousel(for feedback) -->
+
+	<!--banner-slider-->
+	<script th:src="@{/js/JiSlider.js}"></script>
+	<script>
+		$(window).load(function () {
+			$('#JiSlider').JiSlider({
+				color: '#fff',
+				start: 3,
+				reverse: true
+			}).addClass('ff')
+		})
+	</script>
+
+<!--	留言-->
+
+	<script>
+		window.onload = function() {
+			var oDiv = document.getElementById('div1');
+			var aA = document.getElementsByName('a');
+			var i = 0;
+			for (i = 0; i < aA.length; i++) {
+				aA[i].pause = 1;
+				aA[i].time = null;
+				initialize(aA[i]);
+				aA[i].onmouseover = function() {
+					this.pause = 0;
+				};
+				aA[i].onmouseout = function() {
+					this.pause = 1;
+				};
+			}
+			setInterval(starmove, 50);
+
+			function starmove() {
+				for (i = 0; i < aA.length; i++) {
+					if (aA[i].pause) {
+						domove(aA[i]);
+					}
+				}
+			}
+
+			function domove(obj) {
+				if (obj.offsetTop <= -obj.offsetHeight) {
+					obj.style.top = oDiv.offsetHeight + "px";
+					initialize(obj);
+				} else {
+					obj.style.top = obj.offsetTop - obj.ispeed + "px";
+				}
+			}
+
+			function initialize(obj) {
+				var iLeft = parseInt(Math.random() * oDiv.offsetWidth);
+				var scale = Math.random() * 1 + 1;
+				var iTimer = parseInt(Math.random() * 1000);
+				obj.pause = 0;
+
+				obj.style.fontSize = 12 * scale + 'px';
+
+				if ((iLeft - obj.offsetWidth) > 0) {
+					obj.style.left = iLeft - obj.offsetWidth + "px";
+				} else {
+					obj.style.left = iLeft + "px";
+				}
+				clearTimeout(obj.time);
+				obj.time = setTimeout(function() {
+					obj.pause = 1;
+				}, iTimer);
+				obj.ispeed = Math.ceil(Math.random() * 4) + 1;
+			}
+		};
+	</script>
+<!--	//留言-->
+	<!-- //banner-slider -->
+	<!-- smooth scrolling -->
+	<script th:src="@{/js/SmoothScroll.min.js}"></script>
+	<!-- move-top -->
+	<script th:src="@{/js/move-top.js}"></script>
+	<!-- easing -->
+	<script th:src="@{/js/easing.js}"></script>
+	<!--  necessary snippets for few javascript files -->
+	<script th:src="@{/js/outdoor.js}"></script>
+
+	<script th:src="@{/js/bootstrap.js}"></script>
+	<!-- Necessary-JavaScript-File-For-Bootstrap -->
+
+
+</body>
+
+</html>
