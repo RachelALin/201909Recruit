@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>启明星报名</title>
+	<!-- Meta tag Keywords -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8" />
+	<meta name="keywords" content="" />
+	<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+
+	<script type="text/javascript">
+
+	var list = [1,1,1,1,1];
+	function $$1(idName){
+                        return document.getElementById(idName);
+                    }
+	function checkInformation(){
+       		for(var i = 0; i < list.length ; i++){
+       			if (list[i]!=8) {alert("请填写完整且有效的信息！");return false;}
+       		}
+       		//--------------------------------------------------------------------
+		var studentName = document.getElementById("fstudentName").value;
+		var studentId = document.getElementById("fstudentId").value;
+		var academy = document.getElementById("facademy").value;
+		var major = document.getElementById("fmajor").value;
+		var qq = document.getElementById("fqq").value;
+		var tel = document.getElementById("ftel").value;
+		var sex1 = document.getElementById("fsex1");
+		var group1 = document.getElementById("fgroup1");
+		var sex;
+		var  group;
+		if (sex1.checked){
+			sex="男";
+		} else {
+			sex="女";
+		}
+		if (group1.checked){
+			group="开发组";
+		} else {
+			group="智能组";
+		}
+		var obj = {
+		studentName:studentName,
+		studentId:studentId,
+		academy:academy,
+		major:major,
+		qq:qq,
+		tel:tel,
+		sex:sex,
+		group:group,
+		}
+
+		$.ajax({
+			url: "/dosignup",    //reg是注册接口
+			type: 'POST',
+			dataType: 'json',
+			contentType: 'application/json',
+			data: JSON.stringify(obj),
+			success: function(result) {
+				if (result=="1"){
+					alert("报名成功");
+					window.location.href="/success";
+				}
+				else if( result == "0" ){
+					alert("报名失败");
+					window.location.href="/signup";
+				}
+				else if( result == "2" ){
+					alert("抱歉，当前时间不在报名时间！");
+				}
+
+			},
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+				console.log('XMLHttpRequest:');
+				console.log(XMLHttpRequest);
+				alert('网络异常！尝试刷新网页解决问题')
+			},
+
+		});
+		//---------------------------------------------------------
+		return false;
+       }
+		function checkName(obj){
+			var reg=/^[\u0391-\uFFE5\·]{0,10}$/;
+			// var reg= /^([a-zA-Z0-9\u4e00-\u9fa5\·]{1,10})$/;
+			if(obj==""){
+				var mzp = $$1("name");
+				list[0]=1;
+				mzp.innerHTML="姓名不能为空！";
+				return false;
+			}
+			else if(reg.test(obj)!=true){
+				var mzp = $$1("name");
+				list[0]=1;
+				mzp.innerHTML="姓名只能为中文（可能输入了空格等非法字符或者您的名字过长）！";
+				return false;
+			}
+			else {
+				var mzp = $$1("name");
+				list[0]=8;
+				mzp.innerHTML="";
+			}
+
+		}
+
+	function checkID(obj){
+                    var reg = /^[2][0][1][6-9][0-9]{6}$/;
+                    if(obj==""){ 
+                    var mzp2 = $$1("studentId");
+                            mzp2.innerHTML="学号不能为空！";
+                    return false; 
+                    }
+                    else if (reg.test(obj)!=true) {
+                        var mzp2 = $$1("studentId");
+                            mzp2.innerHTML="请输入有效的学号！";
+                                return false; 
+                    }
+					var mzp2 = $$1("studentId");
+					mzp2.innerHTML="";
+                //-----------------------------------------
+
+			 var fstudentId = document.getElementById("fstudentId").value;
+			 var obj = {
+				 studentId:fstudentId,
+			 }
+			 $.ajax({
+				 url: "/checkstudentId",
+				 type: 'POST',
+				 dataType: 'json',
+				 contentType: 'application/json',
+				 data: JSON.stringify(obj),
+				 success: function (result) {
+
+					 if(result=="1"){
+					 	list[1]=8;
+						 $("#studentId").html("");
+						 return true;
+					 }else{
+						 list[1]=1;
+						 $("#studentId").html("该学号已经报名");
+						 return false;
+					 }
+				 },
+				 error: function (XMLHttpRequest, textStatus, errorThrown) {
+					 console.log('XMLHttpRequest:');
+					 console.log(XMLHttpRequest);
+					 alert('网络异常！尝试刷新网页解决问题')
+				 }
+
+			 });
+			 //------------------------------------------------------------------
+        }
+        function checkQQ(obj){ 
+                    var reg = /^[0-9]+$/; 
+                    if(obj==""){ 
+                    var mzp2 = $$1("QQ1");
+						list[2]=1;
+                            mzp2.innerHTML="QQ不能为空！";
+                    return false; 
+                    }
+                    else if (reg.test(obj)!=true) {
+                        var mzp2 = $$1("QQ1");
+						list[2]=1;
+                            mzp2.innerHTML="请输入有效的QQ！";
+                                return false; 
+                    }
+                    else{
+						var mzp2 = $$1("QQ1");
+						list[2]=8;
+						mzp2.innerHTML="";
+					}
+
+        }
+        function checkTel(obj){ 
+                    var reg = /^[1][3,5,8,6,9][0,1,2,3,4,5,6,7,8,9][0-9]{8}$/;
+                    if(obj==""){ 
+                    var mzp3 = $$1("tel");
+                            mzp3.innerHTML="电话不能为空！";
+                    return false; 
+                    }
+                    else if (reg.test(obj)!=true) {
+                        var mzp3 = $$1("tel");
+                            mzp3.innerHTML="请输入有效的电话";
+                                return false; 
+                    }
+                            var mzp3 = $$1("tel");
+                            mzp3.innerHTML="";
+			//-------------------------------------------
+			var obj = document.getElementById("ftel").value;
+			var ctel = {
+				tel:obj
+			}
+			$.ajax({
+				url: "/checkTel",
+				type: 'POST',
+				dataType: 'json',
+				contentType: 'application/json',
+				data: JSON.stringify(ctel),
+				success: function (result) {
+					if(result=="1"){
+						list[3]=8;
+						$("#tel").html("");
+						return true;
+					}else{
+						list[3]=1;
+						$("#tel").html("该电话已经被使用");
+						return false;
+					}
+				},
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+					console.log('XMLHttpRequest:');
+					console.log(XMLHttpRequest);
+					alert('网络异常！尝试刷新网页解决问题')
+				}
+
+			});
+			//----------------------------------
+        }
+        
+        function checkSameTel() {
+			var obj1 = document.getElementById("ftel").value;
+			var obj2 = document.getElementById("fstel").value;
+			console.log(obj1);
+			console.log(obj2);
+			var mzp4 = $$1("stel");
+
+			if (obj2 == obj1) {
+					list[4]=8;
+					mzp4.innerHTML="";
+					return true;
+			} else {
+					list[4]=1;
+					mzp4.innerHTML="两次输入不一致";
+					return false;
+			}
+
+
+		}
+        
+	</script>
+	<!--// Meta tag Keywords -->
+
+	<!-- Custom-Files -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+	<!-- Bootstrap-Core-CSS -->
+	<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" media="all" />
+	<!-- Style-CSS -->
+	<link rel="stylesheet" th:href="@{/css/fontawesome-all.css}">
+	<!-- Font-Awesome-Icons-CSS -->
+	<link rel="stylesheet" type="text/css" href="">
+	<!-- //Custom-Files -->
+
+	<!-- Web-Fonts -->
+	<link href="http://fonts.googleapis.com/css?family=Archivo+Black&amp;subset=latin-ext" rel="stylesheet">
+	<link href="http://fonts.googleapis.com/css?family=Amaranth:400,400i,700,700i" rel="stylesheet">
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+	<!-- //Web-Fonts -->
+
+
+
+</head>
+
+<body>
+
+	<div class="container-fluid">
+		<div class="row">
+	
+			<div class="col-md-2 col-sm-2"></div>
+			<div class="col-md-8 main_grid_contact bg-light">
+				<div class="form">
+					<h4 class="text-center text-uppercase text-dark font-weight-bold mb-sm-5 mb-4">快来报名吧<a href="/">	<i class="fa fa-arrow-circle-right"></i></a></h4>
+					<form name="form1" action="#" method="post" >
+						<div class="form-group">
+						<label class="mb-2">姓名：</label>
+						<input type="text" class="form-control" id="fstudentName" placeholder=" 姓名" onblur="return checkName(this.value)">
+						<p style="color:red;" id="name"></p>
+
+						</div>
+						<div class="form-group">
+						<label class="mb-2">学号：</label>
+						<input type="text" class="form-control " id="fstudentId" placeholder=" 学号" onblur="return checkID(this.value);return reg(this.value)">
+						<p style="color:red;" id="studentId"></p>
+
+						</div>
+
+
+						<br>
+						<div class="form-group">
+							<label class="mb-2">学院:</label>
+							<select name="academy"  class="form-control" id="facademy" onchange="changeSelect(this.selectedIndex)" value="this.value"></select>
+
+						</div>
+						<div class="form-group">
+							<label class="mb-2">专业:</label>
+							<select name="major" class="form-control" id="fmajor" value="this.value"></select>
+
+						</div>
+						<div class="form-group">
+						<label class="mb-2">QQ：</label>
+						<input type="text" class="form-control " id="fqq" placeholder=" QQ号" onblur="return checkQQ(this.value)">
+						<p style="color:red;" id="QQ1"></p>
+
+					</div>
+						<div class="form-group">
+							<label class="mb-2">联系电话：</label>
+							<input type="text" class="form-control " id="ftel" placeholder=" 联系电话" onblur="return checkTel(this.value)">
+							<p style="color:red" id="tel"></p>
+						</div>
+
+						<div class="form-group">
+							<label class="mb-2">确认电话：</label>
+							<input type="text" class="form-control " id="fstel" placeholder=" 再次输入电话号码" oninput=" return checkSameTel()">
+							<p style="color:red" id="stel"></p>
+						</div>
+						<br>
+					<div class="sex">
+						<strong>性别：</strong>
+						
+					  	<div class="form-check form-check-inline" id="fsex">
+                      	<label style="font-family: '宋体';">
+                        <input type="radio" id="fsex1" name="optradio" checked>男生
+                      	</label>
+                    	</div>
+                    	<div class="form-check form-check-inline">
+                      	<label style="font-family: '宋体';">
+                        <input type="radio" id="fsex2" name="optradio">女生
+                     	 </label>
+                    	</div>
+					</div>
+						<br>
+					<div class="group">
+						<strong>组别：</strong>
+						
+					  	<div class="form-check form-check-inline" id="fgroup">
+                      	<label style="font-family: '宋体';">
+                        <input type="radio" id="fgroup1" name="optradio1" checked>开发组
+                      	</label>
+                    	</div>
+                    	<div class="form-check form-check-inline">
+                      	<label  style="font-family: '宋体';">
+                        <input type="radio" id="fgroup2" name="optradio1">智能组
+                     	 </label>
+                    	</div>
+					</div>
+					
+					
+					<div class="input-group1">
+						<input class="form-control" type="submit" value="Submit" onclick="return checkInformation()">
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+
+	
+
+	</div>
+	<div class="footer">
+		<div class="copy-right-w3ls py-3" style="background: rgba(128, 122, 122, 0.08); ">
+		<div class="container" >
+	
+				<div class="col-md-4 col-sm-12" style="margin: 0 auto;"><p style="text-align: center;">启明星©to make a difference</p></div>
+
+		</div>
+		</div>
+	</div>
+
+
+	<!-- Js files -->
+	<!-- JavaScript -->
+	<script th:src="@{/js/jquery-2.2.3.min.js}"></script>
+	<!-- Default-JavaScript-File -->
+	<script th:src="@{/js/bootstrap.js}"></script>
+	<!-- Necessary-JavaScript-File-For-Bootstrap -->
+
+	<!-- fixed nav -->
+	<script>
+		$(window).scroll(function () {
+			if ($(document).scrollTop() > 50) {
+				$('nav').addClass('shrink');
+			} else {
+				$('nav').removeClass('shrink');
+			}
+		});
+	</script>
+	<!-- //fixed nav -->
+	<!-- //navigation -->
+
+	<!-- smooth scrolling -->
+	<script th:src="@{/js/SmoothScroll.min.js}"></script>
+	<!-- move-top -->
+	<script th:src="@{/js/move-top.js}"></script>
+	<!-- easing -->
+	<script th:src="@{/js/easing.js}"></script>
+	<!--  necessary snippets for few javascript files -->
+	<script th:src="@{/js/outdoor.js}"></script>
+
+	<script th:src="@{/js/bootstrap.js}"></script>
+	<!-- Necessary-JavaScript-File-For-Bootstrap -->
+
+	<!-- //Js files -->
+	<script>
+		var arr_facademy = ["计算机与信息学院","土木与建筑学院","机械与动力学院","材料与化工学院","电气与新能源学院","经济与管理学院","医学院","文学与传媒学院","法学与公共管理学院","理学院","生物与制药学院","艺术学院","其他"];
+		var arr_fmajor = [
+			["计算机科学与技术","物联网工程","数字媒体技术","信息管理与信息系统","数据科学与大数据技术","电子信息类","其他"],
+			["土木工程","地质工程","建筑学","城乡规划","其他"],
+			["机械设计制造及其自动化","材料成型及控制工程","机械电子工程","能源与动力工程","核工程与核技术","工业工程","其他"],
+			["金属材料工程","新能源材料与器件","化学工程与工艺","其他"],
+
+			["电气工程及其自动化","智能电网信息工程","自动化","其他"],
+			["金融学","国际经济与贸易","工商管理","市场营销","财务管理","人力资源管理","旅游管理","物流管理","其他"],
+			["临床医学","医学影像学","中医学","药学","护理学","其他"],
+			["汉语言文学","汉语国际教育","广播电视学","播音与主持艺术","其他"],
+			["法学","公共事业管理","行政管理","其他"],
+			["数学与应用数学","信息与计算科学","物理学","光电信息科学与工程","其他"],
+			["化学","化学生物学","生物科学","生态学","其他"],
+			["音乐表演","音乐学","舞蹈学","美术学","视觉传达设计","环境设计","其他"],
+			["其他"]
+		];
+		//网页加载完成，初始化菜单
+		window.onload = init;//传入函数地址
+		function init(){
+			//首先获取对象
+			var facademy = document.form1.facademy;
+			var fmajor = document.form1.fmajor;
+
+			//指定学院中<option>标记的个数
+			facademy.length = arr_facademy.length;
+
+			//循环将数组中的数据写入<option>标记中
+			for(var i=0;i<arr_facademy.length;i++){
+				facademy.options[i].text = arr_facademy[i];
+				facademy.options[i].value = arr_facademy[i];
+			}
+
+			//修改学院列表的默认选择项
+			var index = 0;
+			facademy.selectedIndex = index;
+
+			//指定专业中<option>标记的个数
+			fmajor.length = arr_fmajor[index].length;
+
+			//循环将数组中的数据写入<option>标记中
+			for (var j = 0; j<arr_fmajor[index].length;j++) {
+				fmajor.options[j].text = arr_fmajor[index][j];
+				fmajor.options[j].value = arr_fmajor[index][j];
+			}
+
+		}
+
+		function  changeSelect(index){
+			//选择对象
+			var fmajor = document.form1.fmajor;
+			//修改学院列表的选择项
+			facademy.selectedIndex = index;
+
+			//指定专业中<option>标记的个数
+			fmajor.length = arr_fmajor[index].length;
+
+			//循环将数组中的数据写入<option>标记中
+			for (var j = 0; j<arr_fmajor[index].length;j++) {
+				fmajor.options[j].text = arr_fmajor[index][j];
+				fmajor.options[j].value = arr_fmajor[index][j];
+			}
+		}
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>启明星招新管理后台</title>
+
+  <!--字体 -->
+  <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- 样式 -->
+  <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+  <link th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        function update(id) {
+            console.log("我是传给后台的id："+id);
+            var ajax;
+            ajax=new XMLHttpRequest();
+            ajax.onreadystatechange=function (){
+                if(ajax.readyState==4&&ajax.status==200){
+                    var result=ajax.responseText;
+                    console.log(result);
+                    eval("var u="+result);
+
+                    document.getElementById("id").value=u.id;
+                    document.getElementById("studentName").value=u.studentName;
+                    document.getElementById("studentId").value=u.studentId;
+                    document.getElementById("academy").value=u.academy;
+                    document.getElementById("major").value=u.major;
+                    document.getElementById("qq").value=u.qq;
+                    document.getElementById("tel").value=u.tel;
+                    document.getElementById("sex").value=u.sex;
+                    document.getElementById("group").value=u.group;
+                    document.getElementById("grade").value=u.grade;
+                    if (document.getElementById("grade").value=="undefined"){
+                        document.getElementById("grade").value="";
+                    }
+                    document.getElementById("status").value=u.status;
+                }
+            }
+            ajax.open("post","/student/editstudent");
+            ajax.setRequestHeader("Content-Type","application/json");
+            ajax.send(id);
+        }
+    </script>
+
+</head>
+
+<body id="page-top">
+
+  <div id="wrapper">
+
+    <!-- 侧栏颜色 -->
+    <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
+     <!--  侧边导航栏 -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/user/404">
+        <div class="sidebar-brand-icon rotate-n-15">
+        <!--   微笑 -->
+          <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">管理员<sup>n</sup></div>
+      </a>
+
+      <!-- 分割线 -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Dashboard -->
+      <li class="nav-item ">
+        <a class="nav-link" href="/student/dashboard">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+
+    <!-- 分割线 -->
+      <hr class="sidebar-divider">
+
+      <!-- 头名称-->
+      <div class="sidebar-heading">
+        Addons
+      </div>
+
+      <!-- 菜单 -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Pages</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Login Screens:</h6>
+              <a class="collapse-item" href="/user/login">切换账号</a>
+              <a class="collapse-item" href="/user/register">注册账号</a>
+          </div>
+        </div>
+      </li>
+
+
+      <!-- Tables -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/student/liststudent">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Tables</span></a>
+      </li>
+
+    <!-- 分割线 -->
+      <hr class="sidebar-divider d-none d-md-block">
+        <!-- 图表 -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage" aria-expanded="true" aria-controls="collapsePage">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Charts</span>
+          </a>
+          <div id="collapsePage" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Login Screens:</h6>
+              <a class="collapse-item" href="/student/development_chart">开发组</a>
+              <a class="collapse-item" href="/student/hardware_chart">智能组</a>
+            </div>
+          </div>
+        </li>
+
+      <!-- 分割线 -->
+        <hr class="sidebar-divider d-none d-md-block">
+      <!-- 关闭侧栏按钮 -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+
+    </ul>
+
+    <!-- 内容包装 -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- 主要内容 -->
+      <div id="content">
+
+        <!-- 顶部导航 -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+          <!-- 侧栏切换 -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+
+          <!-- 查询 -->
+          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" th:action="@{/student/findstudent}">
+            <div class="input-group">
+              <input type="text" name="studentName" class="form-control bg-light border-0 small" placeholder="Search for name" aria-label="Search" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+
+
+
+
+                          <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                              <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                          <h4 class="modal-title" id="myModalLabel">添加信息</h4>
+                                      </div>
+                                      <div class="modal-body">
+
+                                          <form class="form-horizontal" action="/student/doaddstudent" method="post" >
+
+                                              <div class="form-group">
+                                                  <label class="col-sm-2 control-label">姓名</label>
+                                                  <div class="col-sm-10">
+                                                      <input type="text" class="form-control" name="studentName" placeholder="">
+                                                  </div>
+                                              </div>
+
+                                              <div class="form-group">
+                                                  <label class="col-sm-2 control-label">学号</label>
+                                                  <div class="col-sm-10">
+                                                      <input type="text" class="form-control" name="studentId" placeholder="">
+                                                  </div>
+                                              </div>
+
+                                              <div class="form-group">
+                                                  <label class="col-sm-2 control-label">学院</label>
+                                                  <div class="col-sm-10">
+                                                      <input type="text" class="form-control" name="academy" placeholder="">
+                                                  </div>
+                                              </div>
+
+                                              <div class="form-group">
+                                                  <label class="col-sm-2 control-label">专业</label>
+                                                  <div class="col-sm-10">
+                                                      <input type="text" class="form-control" name="major" placeholder="">
+                                                  </div>
+                                              </div>
+                                              <div class="form-group">
+                                                  <label class="col-sm-2 control-label">QQ</label>
+                                                  <div class="col-sm-10">
+                                                      <input type="text" class="form-control" name="qq" placeholder="">
+                                                  </div>
+                                              </div>
+
+                                              <div class="form-group">
+                                                  <label class="col-sm-2 control-label">联系电话</label>
+                                                  <div class="col-sm-10">
+                                                      <input type="text" class="form-control" name="tel" placeholder="">
+                                                  </div>
+                                              </div>
+                                              <div class="form-group">
+                                                  <label class="col-sm-2 control-label">性别</label>
+                                                  <div class="col-sm-10">
+                                                      <input type="text" class="form-control" name="sex" placeholder="">
+                                                  </div>
+                                              </div>
+
+                                              <div class="form-group">
+                                                  <label class="col-sm-2 control-label">组别</label>
+                                                  <div class="col-sm-10">
+                                                      <input type="text" class="form-control" name="group" placeholder="">
+                                                  </div>
+                                              </div>
+
+                                              <div class="form-group">
+                                                  <label class="col-sm-2 control-label">成绩</label>
+                                                  <div class="col-sm-10">
+                                                      <input type="text" class="form-control" name="grade" placeholder="">
+                                                  </div>
+                                              </div>
+
+                                      <div class="modal-footer">
+                                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                          <button type="submit" class="btn btn-primary" value="Submit" >Submit</button>
+                                      </div>
+                                      </form>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+          <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown no-arrow mx-1">
+                  <a href="#" class="nav-link" data-toggle="modal" data-target="#create" data-placement="bottom" title="添加学生">
+                      <i class="fab">Create</i>
+                  </a>
+              </li>
+            <!-- 警示 -->
+            <li class="nav-item dropdown no-arrow mx-1">
+              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <strong>Excel</strong>
+              </a>
+              <!-- 下拉信息 -->
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">
+                 导出不同的Excel表
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="/download/exportHardManageList">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-success">
+                      <i class="fas fa-file-alt text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">导出Excel（智能组）</div>
+
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="/download/exportDevManageList">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-success">
+                      <i class="fas fa-file-alt text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">导出Excel（开发组）</div>
+
+                  </div>
+                </a>
+                  <a class="dropdown-item d-flex align-items-center" href="/download/exportGWDataManageList"  data-toggle="tooltip" data-placement="bottom" title="一键导出excel表格">
+                      <div class="mr-3">
+                          <div class="icon-circle bg-success">
+                              <i class="fas fa-file-alt text-white"></i>
+                          </div>
+                      </div>
+                      <div>
+
+                          <div class="small text-gray-500">导出Excel（全部）</div>
+
+                      </div>
+                  </a>
+            
+                <a class="dropdown-item text-center small text-gray-500" href="#">已显示全部</a>
+              </div>
+            </li>
+
+            <!-- 消息 -->
+            <li class="nav-item dropdown no-arrow mx-1">
+              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-envelope fa-fw"></i>
+                <!-- 消息条数 -->
+                <span class="badge badge-danger badge-counter">1</span>
+              </a>
+              <!-- 下拉消息 -->
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                <h6 class="dropdown-header">
+                  通知消息
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="/student/sendmessage" data-toggle="tooltip" data-placement="bottom" title="一键发送通知短信" onclick="if(confirm('确定要一键群发短信?')==false)return false;">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-primary">
+                      <i class="fas fa-file-alt text-white"></i>
+                    </div>
+                  </div>
+                  <div>一键群发短信</div>
+                </a>
+                <a class="dropdown-item text-center small text-gray-500" href="#">展示所有</a>
+              </div>
+            </li>
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- 管理员登录信息 -->
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                <img class="img-profile rounded-circle" th:src="@{/images/admin.jpg}">
+              </a>
+              <!-- 管理员的下拉消息 -->
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+            
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                  设置
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  退出登录
+                </a>
+              </div>
+            </li>
+
+          </ul>
+
+        </nav>
+
+
+
+        <div class="container-fluid">
+
+        <div class="row">
+
+          <!-- 开发组人数 -->
+          <div class="col-xl-4 col-md-4 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">开发组</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${DevNum}"></div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 智能组人数 -->
+          <div class="col-xl-4 col-md-4 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">智能组</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${HardNum}"></div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 总人数 -->
+          <div class="col-xl-4 col-md-4 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">总人数</div>
+                    <div class="row no-gutters align-items-center">
+                      <div class="col-auto">
+                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" th:text="${AllNum}"></div>
+                      </div>
+                      <div class="col">
+                        <div class="progress progress-sm mr-2">
+                      <!--   进度条 -->
+                          <div class="progress-bar bg-info" role="progressbar" style="width: 10%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <!-- 表 -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">学生管理</h6>
+            </div>
+            <div class="card-body">
+                                   <div class="table-responsive">
+                                       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                           <thead>
+                                           <tr>
+                                               <th>编号</th>
+                                               <th>状态</th>
+                                               <th>姓名</th>
+                                               <th>学号</th>
+                                               <th>学院</th>
+                                               <th>专业</th>
+                                               <th>QQ</th>
+                                               <th>联系电话</th>
+                                               <th>性别</th>
+                                               <th>组别</th>
+                                               <th>成绩</th>
+                                               <th>删除</th>
+                                               <th>修改</th>
+                                               <th>通知</th>
+                                           </tr>
+                                           </thead>
+                                           <tbody>
+                                           <tr th:each="c:${list}">
+                                               <td th:text="${c.id}"></td>
+                                               <td th:text="${c.status}"></td>
+                                               <td th:text="${c.studentName}"></td>
+                                               <td th:text="${c.studentId}"></td>
+                                               <td th:text="${c.academy}"></td>
+                                               <td th:text="${c.major}"></td>
+                                               <td th:text="${c.qq}"></td>
+                                               <td th:text="${c.tel}"></td>
+                                               <td th:text="${c.sex}"></td>
+                                               <td th:text="${c.group}"></td>
+                                               <td th:text="${c.grade}"></td>
+
+                                                   <th>
+                                                       <a th:href="@{/student/deletestudent(id=${c.id})}" onclick="if(confirm('确定删除?')==false)return false;" class="btn btn-danger">delete</a>
+
+                                                   </th>
+                                                   <th>
+                                                       <a  style="color:#FFF;" class="btn btn-info" data-toggle="modal" data-target="#update1"   th:onmousedown="'update('+${c.id}+')'">update</a>
+                                                   </th>
+                                                   <th>
+                                                       <a  style="color:#FFF;" class="btn btn-success" onclick="if(confirm('确认发送通知短信吗?')==false)return false;" th:href="@{/student/sendonemessage(id=${c.id})}">sent</a>
+                                                   </th>
+
+                                           </tr>
+                                           </tbody>
+                                       </table>
+                                   </div>
+                               </div>
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+
+                        <div class="modal fade" id="update1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel1">更新信息</h4>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <form class="form-horizontal" action="/student/updatestudent" method="post" >
+                                            <div class="container">
+                                            <label>状态：</label>
+                                            <select name="status" id="status">
+<!--                                                <option>请选择</option>-->
+                                                <option value="0">待定</option>
+                                                <option value="1">未通过</option>
+                                                <option value="2">通过</option>
+                                            </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">id</label>
+                                                <div class="col-sm-10">
+                                                    <input readonly="readonly" type="text" class="form-control" id="id"  name="id" value="" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">姓名</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="studentName" name="studentName" value="" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">学号</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="studentId" name="studentId" value="" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">学院</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="academy" name="academy" value="" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">专业</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="major" name="major" value="" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">QQ</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="qq" name="qq" value="" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">联系电话</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="tel" name="tel" value="" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">性别</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="sex" name="sex" value="" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">组别</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="group" name="group" value="" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">成绩</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="grade" name="grade" value="" placeholder="">
+                                                </div>
+                                            </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" value="Submit" >Submit</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+
+
+
+      <!-- 底部 -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>启明星 &copy; to make your difference</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+
+  </div>
+
+
+  <!-- 回到顶部-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- 退出登录的模态框-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">退出登录</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">如果您确认结束当前会话，请选择下面的“注销”。</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+          <a class="btn btn-primary" href="/user/loginout">注销</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap core JavaScript-->
+  <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+  <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script th:src="@{/js/sb-admin-2.min.js}"></script>
+
+  <!-- Page level plugins -->
+  <script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
+  <script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+  <!-- Page level custom scripts -->
+  <script th:src="@{/js/demo/datatables-demo.js}"></script>
+
+
+</body>
+
+</html>
